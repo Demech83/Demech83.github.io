@@ -45,6 +45,73 @@ body {
     padding-bottom: 10px;
     margin-top: 10px;
 }
+#toggle_container {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding-bottom: 20px;
+    padding-right: 20px; 
+  }
+
+/* -------------------------------------------------------------
+   Pure CSS Toggle Switch with :checked
+   ---------------------------------------------------------- */
+   .toggle-status {
+	display: none;
+}
+.toggle-switch {
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	vertical-align: bottom;
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	width:  1.625em; /* calc(1em * 2 - 0.125em * 2 - 0.0625em * 2); */
+	height: 1.000em; /* calc(1em * 1); */
+	box-sizing: border-box;
+	border: solid lightgray 0.125em;
+	transition: border 0.5s;
+}
+.toggle-status:checked + .toggle-switch {
+    opacity: 0.65;
+	border: solid rgb(0, 192, 0) 0.125em;
+}
+.toggle-switch::after {
+	content: "";
+	display: inline-block;
+	position: absolute;
+	top:    0.0625em;
+	left:   0.0625em;
+	width:  0.625em; /* calc(1em - 0.125em * 2 - 0.0625em * 2); */
+	height: 0.625em; /* calc(1em - 0.125em * 2 - 0.0625em * 2); */
+	background: lightgray;
+	transition: background 0.5s, left 0.5s;
+}
+.toggle-status:checked + .toggle-switch::after {
+    opacity: 0.65;
+	background: rgb(0, 192, 0);
+	left: 0.6875em; /* calc(1em - 0.125em * 2 - 0.0625em); */
+}
+.toggle-string {
+	line-height: 1;
+}
+/* ------------------------------------------ */
+.toggle-rounded {
+	border-radius: 0.5000em; /* calc(1em / 2); */
+}
+.toggle-rounded::after {
+	border-radius: 0.3125em; /* calc(1em / 2 - 0.125em - 0.0625em); */
+}
+/* ---------------------------------------------
+   Size
+   ------------------------------------------ */
+.toggle-x1 { font-size: 1rem; }
+.toggle-x2 { font-size: 2rem; }
+.toggle-x3 { font-size: 3rem; }
+.toggle-x4 { font-size: 4rem; }
+.toggle-x5 { font-size: 5rem; }
+.toggle-x6 { font-size: 6rem; }
+/* ------------------------------------------ */
+
 </style>
 <script>
     document.addEventListener('DOMContentLoaded', function(event) {
@@ -52,6 +119,17 @@ body {
         var urlParams = new URLSearchParams(window.location.search);            
         var widget_id = urlParams.get('widgetId');        
         var team_id = urlParams.get('teamId');
+
+        // toggle handler
+        var toggleButton = document.querySelector('#toggle');
+        document.querySelector('#button_container').style.pointerEvents = 'none';
+        toggleButton.onclick = function() {
+            if (this.checked) {
+                document.querySelector('#button_container').style.pointerEvents = 'auto';
+            } else {
+                document.querySelector('#button_container').style.pointerEvents = 'none';
+            }          
+        }
 
         for (i = 1; i < 11; i++) {
             var button = document.querySelector('#day_' + i);
@@ -109,6 +187,10 @@ body {
         <button id="day_8" class="button">Tue</button>
         <button id="day_9" class="button">Wed</button>
         <button id="day_10" class="button">Thu</button>                
+    </div>
+    <div id="toggle_container">
+        <input id ="toggle" class="toggle-status" type="checkbox">
+        <label for="toggle" class="toggle-switch  toggle-x3 toggle-rounded"></label>
     </div>
 </body>
 
