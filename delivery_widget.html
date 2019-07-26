@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>PDQ</title>
+<title>Delivery</title>
 <style>
 body {
     font-family: "Segoe UI VSS (Regular)","-apple-system",BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Helvetica,Ubuntu,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
@@ -48,8 +48,17 @@ body {
 </style>
 <script>
     document.addEventListener('DOMContentLoaded', function(event) {
+        var storage = window.localStorage;
+        var urlParams = new URLSearchParams(window.location.search);            
+        var widget_id = urlParams.get('widgetId');        
+        var team_id = urlParams.get('teamId');
+
         for (i = 1; i < 11; i++) {
             var button = document.querySelector('#day_' + i);
+
+            // init colors from local storage     
+            button.style.backgroundColor = storage.getItem(widget_id + "_" + team_id + "_day_" + i);
+
             button.onclick = function () {
             const green = "rgb(0, 192, 0)";
             const red = "rgb(192, 0, 0)";
@@ -58,19 +67,28 @@ body {
 
             switch(this.style.backgroundColor) {
                 case grey:
-                    this.style.backgroundColor = green;
+                    storage.setItem(widget_id + "_" + team_id + "_" + this.id, green);
+                    this.style.backgroundColor = storage.getItem(widget_id + "_" + team_id + "_" + this.id);
                     break;
                 case green:
+                    storage.setItem(widget_id + "_" + team_id + "_" + this.id, orange);
                     this.style.backgroundColor = orange;
+                    this.style.backgroundColor = storage.getItem(widget_id + "_" + team_id + "_" + this.id);
                     break;
                 case orange:
+                    storage.setItem(widget_id + "_" + team_id + "_" + this.id, red);
                     this.style.backgroundColor = red;
+                    this.style.backgroundColor = storage.getItem(widget_id + "_" + team_id + "_" + this.id);
                     break;                    
                 case red:
+                    storage.setItem(widget_id + "_" + team_id + "_" + this.id, grey);
                     this.style.backgroundColor = grey;
+                    this.style.backgroundColor = storage.getItem(widget_id + "_" + team_id + "_" + this.id);
                     break;                
                 default:
+                    storage.setItem(widget_id + "_" + team_id + "_" + this.id, green);
                     this.style.backgroundColor = green;
+                    this.style.backgroundColor = storage.getItem(widget_id + "_" + team_id + "_" + this.id);
                 }
             };
         }
