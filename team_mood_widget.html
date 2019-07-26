@@ -54,14 +54,18 @@ body {
             const green = "rgb(0, 192, 0)";
             const red = "rgb(192, 0, 0)";
             const grey = "rgb(204, 204, 204)";
+            const orange = "rgb(192, 192, 0)";
 
             switch(this.style.backgroundColor) {
                 case grey:
                     this.style.backgroundColor = green;
                     break;
                 case green:
-                    this.style.backgroundColor = red;
+                    this.style.backgroundColor = orange;
                     break;
+                case orange:
+                    this.style.backgroundColor = red;
+                    break;                    
                 case red:
                     this.style.backgroundColor = grey;
                     break;                
