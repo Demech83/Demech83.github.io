@@ -153,7 +153,7 @@ body {
             request.open('GET', 'https://api.keyvalue.xyz/' + token + '/' + team_id, true);
 
             request.onload = function () {
-                storage.setItem(widget_id + "_" + team_id, this.response);
+                storage.setItem(team_id, this.response);
                 updateColor();
             }
 
@@ -175,7 +175,7 @@ body {
 
             request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
-            request.send(storage.getItem(widget_id + "_" + team_id));                      
+            request.send(storage.getItem(team_id));                      
         }
 
         var updateColor = function() {
@@ -183,7 +183,7 @@ body {
             var button = document.querySelector('#day_' + i);
 
             // init colors from local storage
-            button.style.backgroundColor = JSON.parse(storage.getItem(widget_id + "_" + team_id))['day_' + i];
+            button.style.backgroundColor = JSON.parse(storage.getItem(team_id))[widget_id + '_day_' + i];
 
             button.onclick = function () {
                 const green = "rgb(0, 192, 0)";
@@ -193,34 +193,34 @@ body {
 
                 switch(this.style.backgroundColor) {
                     case grey:
-                        var currentColor = JSON.parse(storage.getItem(widget_id + "_" + team_id));
-                        currentColor[this.id] = green;
-                        storage.setItem(widget_id + "_" + team_id, JSON.stringify(currentColor));
-                        this.style.backgroundColor = currentColor[this.id];
+                        var currentColor = JSON.parse(storage.getItem(team_id));
+                        currentColor[widget_id + "_" + this.id] = green;
+                        storage.setItem(team_id, JSON.stringify(currentColor));
+                        this.style.backgroundColor = currentColor[widget_id + "_" + this.id];
                         break;
                     case green:
-                        var currentColor = JSON.parse(storage.getItem(widget_id + "_" + team_id));
-                        currentColor[this.id] = orange;
-                        storage.setItem(widget_id + "_" + team_id, JSON.stringify(currentColor));
-                        this.style.backgroundColor = currentColor[this.id];
+                        var currentColor = JSON.parse(storage.getItem(team_id));
+                        currentColor[widget_id + "_" + this.id] = orange;
+                        storage.setItem(team_id, JSON.stringify(currentColor));
+                        this.style.backgroundColor = currentColor[widget_id + "_" + this.id];
                         break;
                     case orange:
-                        var currentColor = JSON.parse(storage.getItem(widget_id + "_" + team_id));
-                        currentColor[this.id] = red;
-                        storage.setItem(widget_id + "_" + team_id, JSON.stringify(currentColor));
-                        this.style.backgroundColor = currentColor[this.id];
+                        var currentColor = JSON.parse(storage.getItem(team_id));
+                        currentColor[widget_id + "_" + this.id] = red;
+                        storage.setItem(team_id, JSON.stringify(currentColor));
+                        this.style.backgroundColor = currentColor[widget_id + "_" + this.id];
                         break;                    
                     case red:
-                        var currentColor = JSON.parse(storage.getItem(widget_id + "_" + team_id));
-                        currentColor[this.id] = grey;
-                        storage.setItem(widget_id + "_" + team_id, JSON.stringify(currentColor));
-                        this.style.backgroundColor = currentColor[this.id];
+                        var currentColor = JSON.parse(storage.getItem(team_id));
+                        currentColor[widget_id + "_" + this.id] = grey;
+                        storage.setItem(team_id, JSON.stringify(currentColor));
+                        this.style.backgroundColor = currentColor[widget_id + "_" + this.id];
                         break;                
                     default:
-                        var currentColor = JSON.parse(storage.getItem(widget_id + "_" + team_id));
-                        currentColor[this.id] = green;
-                        storage.setItem(widget_id + "_" + team_id, JSON.stringify(currentColor));
-                        this.style.backgroundColor = currentColor[this.id];
+                        var currentColor = JSON.parse(storage.getItem(team_id));
+                        currentColor[widget_id + "_" + this.id] = green;
+                        storage.setItem(team_id, JSON.stringify(currentColor));
+                        this.style.backgroundColor = currentColor[widget_id + "_" + this.id];
                     }
                 };
             }
