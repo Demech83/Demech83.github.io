@@ -115,13 +115,22 @@ body {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <script>
+    $.urlParam = function(name){
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        if (results == null){
+        return null;
+        }
+        else {
+        return decodeURI(results[1]) || 0;
+        }
+    }
+
     $(function(){
         var storage = window.localStorage;
-        var urlParams = new URLSearchParams(window.location.search);            
-        var widget_id = urlParams.get('widgetId');        
-        var team_id = urlParams.get('teamId');
-        var token = urlParams.get('token');
-        var title = urlParams.get('title');
+        var widget_id = $.urlParam('widgetId');    
+        var team_id = $.urlParam('teamId');
+        var token = $.urlParam('token');
+        var title = $.urlParam('title');
 
         document.querySelector('#title').innerHTML = title;
 
